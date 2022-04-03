@@ -3,6 +3,9 @@ import { useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useTable } from 'react-table';
 
+import styled from 'styled-components'
+
+
 const UserTables = () => {
 
     // useSelector - take state.users from folder reducers file index.js
@@ -11,76 +14,65 @@ const UserTables = () => {
     const [data, setData] = useState([])
 
     useEffect(() => {
-        const doFetch = async () => {
+        const dataFetch = async () => {
             const response = await usersData
-            console.log('aaa', response)
             setData(response)
+            console.log('Check response of all users for react-table: ', response)
         }
-        doFetch()
-      }, [usersData])
+        dataFetch()
+    }, [usersData])
 
-    console.log('sssss', data);
 
-    // const data = [
-    //       {
-    //         createdAt: "2022-04-01T23:49:05.835Z",
-    //         date: "2010-11-10T23:00:00.000Z",
-    //         money: 20,
-    //         surname: "Dog",
-    //         updatedAt: "2022-04-01T23:49:05.835Z",
-    //         username: "Freya",
-    //       },
-    //       {
-    //         createdAt: "2022-04-01T23:49:37.692Z",
-    //         date: "2022-10-09T22:00:00.000Z",
-    //         money: 10,
-    //         surname: "Doggo",
-    //         updatedAt: "2022-04-01T23:49:37.692Z",
-    //         username: "Morgan",
-    //       },
-    //       {
-    //         createdAt: "2022-04-02T00:02:26.714Z",
-    //         date: "1999-01-01T00:00:00.000Z",
-    //         money: 21,
-    //         surname: "Office Dog",
-    //         updatedAt: "2022-04-02T00:04:54.217Z",
-    //         username: "Naila",
-    //       },
-    //     ]
+    const Styles = styled.div`
+  padding: 1rem;
+
+  table {
+    border-spacing: 0;
+    border: 1px solid black;
+
+    tr {
+      :last-child {
+        td {
+          border-bottom: 0;
+        }
+      }
+    }
+
+    th,
+    td {
+      margin: 0;
+      padding: 0.5rem;
+      border-bottom: 1px solid black;
+      border-right: 1px solid black;
+
+      :last-child {
+        border-right: 0;
+      }
+    }
+  }
+`
+
 
     const columns = useMemo(() => [
         {
-            Headers: 'Username',
+            Header: 'Username',
             accessor: 'username'
         },
         {
-            Headers: 'Surname',
+            Header: 'Surname',
             accessor: 'surname'
         },
         {
-            Headers: 'Money',
-            accessor: 'money'
+            Header: 'Money',
+            accessor: 'money',
         },
         {
-            Headers: 'Date',
+            Header: 'Date',
             accessor: 'date'
-        },
-        {
-            Headers: 'updatedAt',
-            accessor: 'updatedAt'
-        },
-        {
-            Headers: 'createdAt',
-            accessor: 'createdAt'
         },
     ],
     []
     )
-
-    // const allUsersTable = useTable({
-    //     columns,
-    //     users
-    // })
 
     const {
         getTableProps,
@@ -92,6 +84,8 @@ const UserTables = () => {
         columns,
         data
     })
+
+    function Table({ columns, data}) {
 
     return (
         // apply the table props
@@ -124,6 +118,14 @@ const UserTables = () => {
         </table>
 
     );
+    }
+
+
+    return (
+        <Styles>
+            <Table columns={columns} data={data} />
+        </Styles>
+    )
 }
 
 export default UserTables;
