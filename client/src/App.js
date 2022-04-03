@@ -5,8 +5,9 @@ import { useEffect } from 'react';
 
 import { getUsers } from './actions/users';
 
-import TableColumn from './components/TableColumn/TableColumns';
+import MainTables from './components/MainTable/MainTables';
 
+import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
 
 
@@ -20,7 +21,7 @@ function App() {
 
   return (
     <div className="App">
-      <TableColumn />
+      <MainTables />
     </div>
   );
 }

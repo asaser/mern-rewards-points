@@ -8,14 +8,22 @@ import { Provider } from 'react-redux';
 
 // applyMiddleware inform store about our own middleware and help impleented its into our redux
 //compose help to put all middleware what we are own
-import { createStore, applyMiddleware, compose } from 'redux';
+import { 
+  createStore, 
+  applyMiddleware, 
+  // compose 
+} 
+  from 'redux';
 // middleware to use easier asynchronous events to API
 import thunk from 'redux-thunk';
+// its the same like COMPOSE but also give possibility to check redux in browser
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 import reducers from './reducer/index';
 
 // create store with all data
-const store = createStore(reducers, compose(applyMiddleware(thunk)))
+const store = createStore(reducers, composeWithDevTools(applyMiddleware(thunk)))
+// const store = createStore(reducers, compose(applyMiddleware(thunk)))
 
 // new React 18 option to take ReactDOM
 const root = ReactDOM.createRoot(document.getElementById('root'));
