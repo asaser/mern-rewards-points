@@ -27,7 +27,8 @@ const userSchema = new Schema({
     },
     date: {
         type: Date,
-        required: false,
+        required: true,
+        trim: true,
     }
 }, {
     // auto create createAt and updateAt
