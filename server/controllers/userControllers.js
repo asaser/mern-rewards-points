@@ -5,7 +5,9 @@ const User = require('../models/userModel');
 const getUsers = async (req, res) => {
     try {
         const users = await User.find();
+
         res.status(200).json(users);
+
     } catch(error) {
         res.status(404).json('Error server server getUsers: ' + error)
     }
@@ -13,14 +15,14 @@ const getUsers = async (req, res) => {
 
 // description - create/POST /users
 const postUsers = async (req, res) => {
+    const customerId = req.body.customerId;
     const username = req.body.username;
     const surname = req.body.surname;
     const money = Number(req.body.money);
     const date = Date.parse(req.body.date);
 
-    // const { username, surname, money, date } = req.body;
-
     const newUser = new User({
+        customerId,
         username,
         surname,
         money,
@@ -29,6 +31,7 @@ const postUsers = async (req, res) => {
 
     try {
         await newUser.save();
+        // const createUser = await newUser.save();
         res.status(200).json(newUser)
 
     } catch(error) {
@@ -63,7 +66,7 @@ const deleteUsers = async (req, res) => {
     const id = req.params.id;
 
     try {
-        const deleteUser = await User.findByIdAndDelete(id)
+        await User.findByIdAndDelete(id)
         res.status(200).json({message: `Delete ${req.params.id}`})
 
     } catch(error) {
