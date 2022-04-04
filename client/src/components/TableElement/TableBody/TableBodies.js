@@ -1,6 +1,11 @@
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from "react";
 import moment from 'moment';
+
+import { deleteUser, getUsers } from '../../../actions/users';
+
+import TableDeletePopups from '../TableDeletePopup/TableDeletePopups';
+import { Button, Modal } from 'react-bootstrap';
 
 const TableBodies = () => {
 
@@ -8,7 +13,11 @@ const TableBodies = () => {
 
     const [usersData, setUsersData] = useState([]);
 
-    // console.log('moneyRewardsPoints', moneyRewardsPoints);
+    const [modalShow, setModalShow] = useState(false);
+
+
+
+    const dispatch = useDispatch();
 
     useEffect(() => {
         const dataFetch = async () => {
@@ -30,9 +39,10 @@ const TableBodies = () => {
         } else {
             points = 0;
         }
-    
+
         return points;
     }
+    
 
     return (
         <>
@@ -44,9 +54,18 @@ const TableBodies = () => {
                         <td>{data.money}</td>
                         <td>{moment(data.date).format('MMMM')}</td>
                         <td>{countingPoints(data.money)}</td>
-                        {/* <td className='opration'> */}
-                        {/* <button className='button' onClick={() => removeData(id)}>Delete</button> */}
-                        {/* </td> */}
+                        <td>
+                        <Button variant="primary" onClick={() => setModalShow(true)}>
+                            Launch vertically centered modal
+                        </Button>
+
+                        <TableDeletePopups
+                            show={modalShow}
+                            onHide={() => setModalShow(false)}
+                            // data = {data._id}
+                            delete = {() => dispatch(deleteUser(data._id))}
+                        />
+                        </td>
                     </tr>
                 )
             })}

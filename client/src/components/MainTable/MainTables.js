@@ -5,16 +5,18 @@ import TableBodies from '../TableElement/TableBody/TableBodies';
 const MainTables = () => {
 
     return (
-        <Table striped bordered hover variant="dark">
-            <thead>
-                <tr>
-                    <TableHeaders />
-                </tr>
-            </thead>
-            <tbody>
-                <TableBodies />
-            </tbody>
-        </Table>
+        <>
+            <Table striped bordered hover variant="dark">
+                <thead>
+                    <tr>
+                        <TableHeaders />
+                    </tr>
+                </thead>
+                <tbody>
+                    <TableBodies />
+                </tbody>
+            </Table>
+        </>
     )
 }
 

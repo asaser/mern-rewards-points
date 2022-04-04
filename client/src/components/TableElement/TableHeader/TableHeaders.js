@@ -1,6 +1,6 @@
 
 const TableHeaders = () => {
-    const headerTitles = ['Username', 'Surname', 'Money', 'Date', 'Points'];
+    const headerTitles = ['Username', 'Surname', 'Money', 'Date', 'Points', 'Delete'];
 
     return (
         <>
