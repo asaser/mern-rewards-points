@@ -16,9 +16,9 @@ const URI = process.env.ATLAS_URI;
 const usersRoute = require('./routes/userRoutes')
 app.use('/users', usersRoute);
 
-app.get('/', (req, res) => {
-    res.send('Hello to Mern-Rewards-Point App');
-})
+// app.get('/', (req, res) => {
+//     res.send('Hello to Mern-Rewards-Point App');
+// })
 
 mongoose.connect(URI, { 
     // flagi aby dodawać nowe url oraz indexy w MongoDB
