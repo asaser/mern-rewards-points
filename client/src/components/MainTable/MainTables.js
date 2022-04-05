@@ -6,6 +6,7 @@ const MainTables = () => {
 
     return (
         <>
+        {/* Table with all transactions */}
             <Table striped bordered hover variant="dark">
                 <thead>
                     <tr>

@@ -2,11 +2,6 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-    customerId: {
-        type: Number,
-        required: true,
-        trim: true,
-    },
     username: {
         type: String,
         required: true,
@@ -29,7 +24,7 @@ const userSchema = new Schema({
         type: Date,
         required: true,
         trim: true,
-    }
+    },
 }, {
     // auto create createAt and updateAt
     timestamps: true

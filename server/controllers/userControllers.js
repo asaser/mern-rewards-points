@@ -15,18 +15,16 @@ const getUsers = async (req, res) => {
 
 // description - create/POST /users
 const postUsers = async (req, res) => {
-    const customerId = req.body.customerId;
     const username = req.body.username;
     const surname = req.body.surname;
     const money = Number(req.body.money);
     const date = Date.parse(req.body.date);
 
     const newUser = new User({
-        customerId,
         username,
         surname,
         money,
-        date
+        date,
     });
 
     try {

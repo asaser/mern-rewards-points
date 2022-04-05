@@ -1,11 +1,10 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from "react";
 import moment from 'moment';
+import { Modal } from "react-bootstrap";
+import Button from 'react-bootstrap/Button'
 
 import { deleteUser, getUsers } from '../../../actions/users';
-
-import TableDeletePopups from '../TableDeletePopup/TableDeletePopups';
-import { Button, Modal } from 'react-bootstrap';
 
 const TableBodies = () => {
 
@@ -13,11 +12,7 @@ const TableBodies = () => {
 
     const [usersData, setUsersData] = useState([]);
 
-    const [modalShow, setModalShow] = useState(false);
-
-
-
-    const dispatch = useDispatch();
+    const [show, setShow] = useState(false);
 
     useEffect(() => {
         const dataFetch = async () => {
@@ -26,6 +21,16 @@ const TableBodies = () => {
         }
         dataFetch()
     }, [usersAllData]);
+
+    const dispatch = useDispatch();
+
+    const deleteUserTransaction = (idTransaction) => {
+        dispatch(deleteUser(idTransaction));
+    }
+
+    const getAllTransactions = () => {
+        dispatch(getUsers());
+    }
 
 
     // function for counting points
@@ -55,16 +60,31 @@ const TableBodies = () => {
                         <td>{moment(data.date).format('MMMM')}</td>
                         <td>{countingPoints(data.money)}</td>
                         <td>
-                        <Button variant="primary" onClick={() => setModalShow(true)}>
-                            Launch vertically centered modal
-                        </Button>
+                            <Button variant="danger" onClick={() => setShow(true)}>
+                                Delete
+                            </Button>
 
-                        <TableDeletePopups
-                            show={modalShow}
-                            onHide={() => setModalShow(false)}
-                            // data = {data._id}
-                            delete = {() => dispatch(deleteUser(data._id))}
-                        />
+                            <Modal show={show} onHide={() => setShow(false)}>
+                                <Modal.Header closeButton>
+                                <Modal.Title>Delete</Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>Do you want delete this transaction?</Modal.Body>
+                                <Modal.Footer>
+                                <Button variant="primary" onClick={() => {
+                                    setShow(false);
+                                }}>
+                                    Close
+                                </Button>
+                                <Button variant="danger" onClick={() => {
+                                    deleteUserTransaction(data._id);
+                                    getAllTransactions();
+                                    setShow(false);
+                                    getAllTransactions();
+                                }}>
+                                    Delete
+                                </Button>
+                                </Modal.Footer>
+                            </Modal>
                         </td>
                     </tr>
                 )
