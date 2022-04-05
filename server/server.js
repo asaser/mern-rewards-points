@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 const app = express();
-const PORT = process.env.PORT_NETWORK || 5000;
+const PORT = process.env.PORT || 5000;
 
 // middleware który łączy nas z MongoDB i parsuje dane na json
 app.use(cors());
@@ -15,6 +15,10 @@ const URI = process.env.ATLAS_URI;
 
 const usersRoute = require('./routes/userRoutes')
 app.use('/users', usersRoute);
+
+app.get('/', (req, res) => {
+    res.send('Hello to Mern-Rewards-Point App');
+})
 
 mongoose.connect(URI, { 
     // flagi aby dodawać nowe url oraz indexy w MongoDB
